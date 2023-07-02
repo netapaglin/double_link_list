@@ -1,0 +1,48 @@
+TARGET= genDLL.out
+CC= gcc
+CFLAGS= -ansi -g -pedantic 
+OBJS= genericDLL.o genericDLLTest.o 
+
+$(TARGET): $(OBJS)
+	$(CC) -o $(TARGET) $(OBJS)
+	
+genericDLL.o: genericDLL.h genericDLL.c ListInternal.h
+	$(CC) $(CFLAGS) -c genericDLL.c
+	
+genericDLLTest.o: genericDLLTest.c genericDLL.h ListInternal.h
+	$(CC) $(CFLAGS) -c genericDLLTest.c
+	
+	
+	
+clean:
+	rm -f $(TARGET) $(OBJS)
+
+
+/***************************************************************/
+
+new make file
+
+TARGET= genItr.out
+CC= gcc
+CFLAGS= -ansi -g -pedantic 
+OBJS= ListItr.o ListItrTest.o genericDLL.o GeneralList.o 
+
+$(TARGET): $(OBJS)
+	$(CC) -o $(TARGET) $(OBJS)
+	
+ListItr.o:  ListInternal.h ListItr.h  ListItr.c
+	$(CC) $(CFLAGS) -c ListItr.c
+	
+ListItrTest.o: ListItrTest.c  ListInternal.h ListItr.h genericDLL.h
+	$(CC) $(CFLAGS) -c ListItrTest.c
+	
+genericDLL.o:genericDLL.h genericDLL.c
+	$(CC) $(CFLAGS) -c genericDLL.c	
+
+GeneralList.o: GeneralList.c  ListInternal.h ListItr.h genericDLL.h GeneralList.h
+	$(CC) $(CFLAGS) -c GeneralList.c	
+	
+	
+clean:
+	rm -f $(TARGET) $(OBJS)
+
